@@ -76,10 +76,7 @@ export const vaultsAggregatedCoveredDebt = derived([vaultsStore, balancesStore],
     let initialVal = BigNumber.from(0);
     balances = {
       ...balances,
-      [Number(vaultTypeKey)]:
-        (vaultBody)
-        ?
-          vaultBody.reduce((_prevVault, _currentVault) => {
+      [Number(vaultTypeKey)]: vaultBody.reduce((_prevVault, _currentVault) => {
           const underlyingTokenData = getTokenDataFromBalances(_currentVault.underlyingAddress, [$balances]);
           const normalizedAmount = (underlyingTokenData)
             ? _currentVault.balance
@@ -90,7 +87,6 @@ export const vaultsAggregatedCoveredDebt = derived([vaultsStore, balancesStore],
 
           return _prevVault.add(normalizedAmount);
         }, initialVal)
-        : 0,
     };
   });
   return balances;
